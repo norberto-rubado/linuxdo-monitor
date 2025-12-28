@@ -109,6 +109,11 @@ restore_backup_config() {
     echo "恢复配置文件..."
     cp "/tmp/linuxdo-monitor-config.backup.json" "$INSTALL_DIR/config.json"
     rm -f "/tmp/linuxdo-monitor-config.backup.json"
+
+    local run_user
+    run_user="${SUDO_USER:-root}"
+    chown "$run_user":"$run_user" "$INSTALL_DIR/config.json" 2>/dev/null || true
+    chmod 600 "$INSTALL_DIR/config.json" || true
   fi
 }
 
@@ -124,7 +129,7 @@ write_config_if_missing() {
 
   local cookie bot_token chat_id monitor_users_raw check_interval
 
-  tty_read cookie "请输入 Linux.do Cookie（从浏览器开发者工具复制 Cookie 整段）： " true
+  tty_read cookie "请输入 Linux.do Cookie（可留空；若遇到 401/403 再填写）： " true
   tty_read bot_token "请输入 Telegram Bot Token： " true
   tty_read chat_id "请输入 Telegram Chat ID： "
   tty_read monitor_users_raw "请输入要监控的用户名（多个用英文逗号分隔）： "
@@ -174,6 +179,9 @@ write_config_if_missing() {
 }
 EOF
 
+  local run_user
+  run_user="${SUDO_USER:-root}"
+  chown "$run_user":"$run_user" "$INSTALL_DIR/config.json" 2>/dev/null || true
   chmod 600 "$INSTALL_DIR/config.json" || true
   echo "配置文件已创建：$INSTALL_DIR/config.json"
 }

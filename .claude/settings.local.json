@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(git init)",
-      "Bash(git add .)",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nInitial commit: LinuxDo Monitor\n\n- Add user post monitoring functionality\n- Add Telegram notification integration\n- Add installation script for VPS deployment\n- Add README documentation\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n\\)\")"
-    ]
-  }
-}
