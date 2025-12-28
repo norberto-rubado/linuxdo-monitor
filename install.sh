@@ -61,7 +61,7 @@ fi
 
 # 克隆项目
 echo "正在克隆项目..."
-git clone https://github.com/YOUR_USERNAME/linuxdo-monitor.git "$INSTALL_DIR"
+git clone https://github.com/norberto-rubado/linuxdo-monitor.git "$INSTALL_DIR"
 cd "$INSTALL_DIR"
 
 # 恢复备份的配置文件
