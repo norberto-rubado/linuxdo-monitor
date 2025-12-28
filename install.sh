@@ -85,29 +85,37 @@ if [ ! -f "config.json" ]; then
     CHECK_INTERVAL=${CHECK_INTERVAL:-300}
 
     # 创建配置文件
-    printf '{\n  "username": "%s",\n  "telegram": {\n    "botToken": "%s",\n    "chatId": "%s"\n  },\n  "checkInterval": %s\n}\n' "$USERNAME" "$BOT_TOKEN" "$CHAT_ID" "$CHECK_INTERVAL" > config.json
+    echo "{" > config.json
+    echo "  \"username\": \"$USERNAME\"," >> config.json
+    echo "  \"telegram\": {" >> config.json
+    echo "    \"botToken\": \"$BOT_TOKEN\"," >> config.json
+    echo "    \"chatId\": \"$CHAT_ID\"" >> config.json
+    echo "  }," >> config.json
+    echo "  \"checkInterval\": $CHECK_INTERVAL" >> config.json
+    echo "}" >> config.json
     echo "配置文件已创建"
 fi
 
 # 创建 systemd 服务
 echo "创建 systemd 服务..."
-printf '[Unit]
-Description=LinuxDo Monitor Service
-After=network.target
-
-[Service]
-Type=simple
-User=root
-WorkingDirectory=/opt/linuxdo-monitor
-ExecStart=/usr/bin/node src/index.js
-Restart=always
-RestartSec=10
-StandardOutput=journal
-StandardError=journal
-
-[Install]
-WantedBy=multi-user.target
-' > /etc/systemd/system/linuxdo-monitor.service
+{
+    echo "[Unit]"
+    echo "Description=LinuxDo Monitor Service"
+    echo "After=network.target"
+    echo ""
+    echo "[Service]"
+    echo "Type=simple"
+    echo "User=root"
+    echo "WorkingDirectory=/opt/linuxdo-monitor"
+    echo "ExecStart=/usr/bin/node src/index.js"
+    echo "Restart=always"
+    echo "RestartSec=10"
+    echo "StandardOutput=journal"
+    echo "StandardError=journal"
+    echo ""
+    echo "[Install]"
+    echo "WantedBy=multi-user.target"
+} > /etc/systemd/system/linuxdo-monitor.service
 
 # 重新加载 systemd
 systemctl daemon-reload
