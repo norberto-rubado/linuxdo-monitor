@@ -98,24 +98,23 @@ fi
 
 # 创建 systemd 服务
 echo "创建 systemd 服务..."
-{
-    echo "[Unit]"
-    echo "Description=LinuxDo Monitor Service"
-    echo "After=network.target"
-    echo ""
-    echo "[Service]"
-    echo "Type=simple"
-    echo "User=root"
-    echo "WorkingDirectory=/opt/linuxdo-monitor"
-    echo "ExecStart=/usr/bin/node src/index.js"
-    echo "Restart=always"
-    echo "RestartSec=10"
-    echo "StandardOutput=journal"
-    echo "StandardError=journal"
-    echo ""
-    echo "[Install]"
-    echo "WantedBy=multi-user.target"
-} > /etc/systemd/system/linuxdo-monitor.service
+SERVICE_FILE="/etc/systemd/system/linuxdo-monitor.service"
+echo "[Unit]" > $SERVICE_FILE
+echo "Description=LinuxDo Monitor Service" >> $SERVICE_FILE
+echo "After=network.target" >> $SERVICE_FILE
+echo "" >> $SERVICE_FILE
+echo "[Service]" >> $SERVICE_FILE
+echo "Type=simple" >> $SERVICE_FILE
+echo "User=root" >> $SERVICE_FILE
+echo "WorkingDirectory=/opt/linuxdo-monitor" >> $SERVICE_FILE
+echo "ExecStart=/usr/bin/node src/index.js" >> $SERVICE_FILE
+echo "Restart=always" >> $SERVICE_FILE
+echo "RestartSec=10" >> $SERVICE_FILE
+echo "StandardOutput=journal" >> $SERVICE_FILE
+echo "StandardError=journal" >> $SERVICE_FILE
+echo "" >> $SERVICE_FILE
+echo "[Install]" >> $SERVICE_FILE
+echo "WantedBy=multi-user.target" >> $SERVICE_FILE
 
 # 重新加载 systemd
 systemctl daemon-reload
