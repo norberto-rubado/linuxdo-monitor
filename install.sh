@@ -85,23 +85,13 @@ if [ ! -f "config.json" ]; then
     CHECK_INTERVAL=${CHECK_INTERVAL:-300}
 
     # 创建配置文件
-    cat > config.json <<EOF
-{
-  "username": "$USERNAME",
-  "telegram": {
-    "botToken": "$BOT_TOKEN",
-    "chatId": "$CHAT_ID"
-  },
-  "checkInterval": $CHECK_INTERVAL
-}
-EOF
+    printf '{\n  "username": "%s",\n  "telegram": {\n    "botToken": "%s",\n    "chatId": "%s"\n  },\n  "checkInterval": %s\n}\n' "$USERNAME" "$BOT_TOKEN" "$CHAT_ID" "$CHECK_INTERVAL" > config.json
     echo "配置文件已创建"
 fi
 
 # 创建 systemd 服务
 echo "创建 systemd 服务..."
-cat > /etc/systemd/system/linuxdo-monitor.service <<'SERVICE_EOF'
-[Unit]
+printf '[Unit]
 Description=LinuxDo Monitor Service
 After=network.target
 
@@ -117,7 +107,7 @@ StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
-SERVICE_EOF
+' > /etc/systemd/system/linuxdo-monitor.service
 
 # 重新加载 systemd
 systemctl daemon-reload
