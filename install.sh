@@ -100,7 +100,7 @@ fi
 
 # 创建 systemd 服务
 echo "创建 systemd 服务..."
-cat > /etc/systemd/system/linuxdo-monitor.service <<EOF
+cat > /etc/systemd/system/linuxdo-monitor.service <<'SERVICE_EOF'
 [Unit]
 Description=LinuxDo Monitor Service
 After=network.target
@@ -108,7 +108,7 @@ After=network.target
 [Service]
 Type=simple
 User=root
-WorkingDirectory=$INSTALL_DIR
+WorkingDirectory=/opt/linuxdo-monitor
 ExecStart=/usr/bin/node src/index.js
 Restart=always
 RestartSec=10
@@ -117,7 +117,7 @@ StandardError=journal
 
 [Install]
 WantedBy=multi-user.target
-EOF
+SERVICE_EOF
 
 # 重新加载 systemd
 systemctl daemon-reload
