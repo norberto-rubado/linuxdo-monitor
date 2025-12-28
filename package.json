@@ -1,0 +1,21 @@
+{
+  "name": "linuxdo-monitor",
+  "version": "1.0.0",
+  "description": "Monitor Linux.do user posts and notify via Telegram",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "keywords": [
+    "linux.do",
+    "monitor",
+    "telegram"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

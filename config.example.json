@@ -1,0 +1,18 @@
+{
+  "cookie": "你的 Linux.do Cookie，从浏览器开发者工具获取",
+
+  "telegram": {
+    "botToken": "你的 Telegram Bot Token，从 @BotFather 获取",
+    "chatId": "你的 Telegram Chat ID，从 @userinfobot 获取"
+  },
+
+  "monitorUsers": [
+    "要监控的用户名1",
+    "要监控的用户名2"
+  ],
+
+  "checkInterval": 300,
+
+  "monitorTopics": true,
+  "monitorReplies": true
+}
